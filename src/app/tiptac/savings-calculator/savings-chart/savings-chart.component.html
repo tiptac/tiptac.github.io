@@ -1,0 +1,11 @@
+<div style="display: block;">
+   <canvas baseChart height="200"
+      [datasets]="model.chartData"
+      [labels]="model.chartLabels"
+      [options]="chartOptions"
+      [colors]="model.chartColors"
+      [legend]="chartLegend"
+      [chartType]="'line'"
+      [plugins]="chartPlugins">
+   </canvas>
+</div>

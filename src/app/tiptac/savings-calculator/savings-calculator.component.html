@@ -1,0 +1,246 @@
+<h2 class="mb-4">
+   {{'blog.savingsCalculator.title'| translate}}
+</h2>
+<h5 class="mb-5">
+   {{'blog.savingsCalculator.description'| translate}}
+</h5>
+
+<div class="jumbotron">
+   <form #inputForm="ngForm">
+      <div class="row">
+         <div class="col-xl-4 col-lg-12">
+            <div class="form-row">
+               <div class="col-xl-12" *ngIf="systematicInvestmentEnabled">
+                  <hr class="mt-3 mb-1" />
+                  <label>
+                     {{'blog.savingsCalculator.contributionType.label' | translate}}
+                  </label>
+                  <div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="contributionTypeOneTime" name="contributionType"
+                           class="custom-control-input"
+                           [(ngModel)]="contributionType"
+                           value="{{Frequency.onetime}}">
+                        <label class="custom-control-label"
+                           for="contributionTypeOneTime">
+                           {{'blog.savingsCalculator.frequency.option.oneTime' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="contributionTypeMonthly" name="contributionType"
+                           class="custom-control-input"
+                           [(ngModel)]="contributionType"
+                           value="{{Frequency.monthly}}">
+                        <label class="custom-control-label" for="contributionTypeMonthly">
+                           {{'blog.savingsCalculator.frequency.option.monthly' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="contributionTypeYearly" name="contributionType"
+                           class="custom-control-input"
+                           [(ngModel)]="contributionType"
+                           value="{{Frequency.yearly}}">
+                        <label class="custom-control-label" for="contributionTypeYearly">
+                           {{'blog.savingsCalculator.frequency.option.yearly' | translate}}
+                        </label>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12">
+                  <hr class="mt-3 mb-1" />
+                  <label for="principal">{{'blog.savingsCalculator.principal.label' | translate}}</label>
+                  <input type="number" class="form-control" name="principal" id="principal"
+                     aria-describedby="principalHelp"
+                     [min]="principalMin" [max]="principalMax"
+                     [(ngModel)]="principal"
+                     placeholder="{{'blog.savingsCalculator.principal.placeHolder' | translate}}">
+                  <mv-slider
+                     [scale]="'logarithmic'"
+                     [min]="principalMin"
+                     [max]="principalMax"
+                     [(value)]="principal">
+                  </mv-slider>
+                  <small id="pricipalHelp" class="form-text text-muted">
+                     {{'blog.savingsCalculator.principal.helperText' | translate}}
+                  </small>
+               </div>
+               <div class="col-md-12">
+                  <hr class="mt-3 mb-1" />
+                  <label for="rateOfInterest">{{'blog.savingsCalculator.rateOfInterest.label' | translate}}</label>
+                  <input type="number" class="form-control" name="rateOfInterest" id="rateOfInterest"
+                     aria-describedby="rateOfInterestHelp"
+                     [min]="rateOfInterestMin" [max]="rateOfInterestMax"
+                     [(ngModel)]="rateOfInterest"
+                     placeholder="{{'blog.savingsCalculator.rateOfInterest.placeHolder' | translate}}">
+                  <small id="rateOfInterestHelp"
+                     class="form-text text-muted">{{'blog.savingsCalculator.rateOfInterest.helperText' |
+                     translate}}
+                  </small>
+                  <mv-slider id="rateOfInterestSlider" [min]="rateOfInterestMin" [max]="rateOfInterestMax"
+                     [(value)]="rateOfInterest">
+                  </mv-slider>
+               </div>
+               <div class="col-md-12">
+                  <hr class="mt-3 mb-1" />
+                  <label>
+                     {{'blog.savingsCalculator.compoundInterval.label' | translate}}
+                  </label>
+                  <div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="compoundIntervalOneTime" name="compoundInterval"
+                           class="custom-control-input"
+                           [(ngModel)]="compoundInterval"
+                           value="{{CompoundInterval.never}}">
+                        <label class="custom-control-label"
+                           for="compoundIntervalOneTime">
+                           {{'blog.savingsCalculator.compoundInterval.option.never' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="compoundIntervalMonthly" name="compoundInterval"
+                           class="custom-control-input"
+                           [(ngModel)]="compoundInterval"
+                           value="{{CompoundInterval.monthly}}">
+                        <label class="custom-control-label" for="compoundIntervalMonthly">
+                           {{'blog.savingsCalculator.compoundInterval.option.monthly' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="compoundIntervalYearly" name="compoundInterval"
+                           class="custom-control-input"
+                           [(ngModel)]="compoundInterval"
+                           value="{{CompoundInterval.yearly}}">
+                        <label class="custom-control-label" for="compoundIntervalYearly">
+                           {{'blog.savingsCalculator.compoundInterval.option.yearly' | translate}}
+                        </label>
+                     </div>
+                  </div>
+
+               </div>
+               <div class="col-md-12">
+                  <hr class="mt-3 mb-1" />
+                  <label for="investmentTime">{{'blog.savingsCalculator.investment.time.label' | translate}}</label>
+                  <div class="btn-group btn-group-toggle ml-4" data-toggle="buttons">
+                     <label class="btn btn-sm"
+                        [ngClass]="investmentTimeOption === TimeOption.months ? 'btn-primary active' : 'btn-outline-primary'">
+                        <input type="radio" name="investmentTimeOption" [(ngModel)]="investmentTimeOption"
+                           value="{{TimeOption.months}}">
+                        {{'blog.savingsCalculator.time.option.months' | translate}}
+                     </label>
+                     <label class="btn btn-sm"
+                        [ngClass]="investmentTimeOption === TimeOption.years ? 'btn-primary active' : 'btn-outline-primary'">
+                        <input type="radio" name="investmentTimeOption" [(ngModel)]="investmentTimeOption"
+                           value="{{TimeOption.years}}">
+                        {{'blog.savingsCalculator.time.option.years' | translate}}
+                     </label>
+                  </div>
+                  <input type="number" class="form-control" name="investmentTime" id="investmentTime"
+                     aria-describedby="timeHelp"
+                     [min]="timeMin"
+                     [max]="investmentTimeOption === TimeOption.years ? investmentTimeMax : investmentTimeMaxMonths"
+                     [(ngModel)]="investmentTime"
+                     placeholder="{{'blog.savingsCalculator.investment.time.placeHolder' | translate:{option: (investmentTimeOptionParameter) } }}">
+                  <small id="timeHelp" class="form-text text-muted">
+                     {{'blog.savingsCalculator.investment.time.helperText' | translate:{option:
+                     (investmentTimeOptionParameter)
+                     }
+                     }}
+                  </small>
+                  <mv-slider id="timeSlider" [min]="timeMin"
+                     [max]="investmentTimeOption === TimeOption.years ? investmentTimeMax : investmentTimeMaxMonths"
+                     [(value)]="investmentTime">
+                  </mv-slider>
+
+               </div>
+               <div class="col-md-12" *ngIf="systematicWithdrawEnabled">
+                  <hr class="mt-3 mb-1" />
+                  <label>
+                     {{'blog.savingsCalculator.withdrawType.label' | translate}}
+                  </label>
+                  <div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="withdrawTypeOneTime" name="withdrawType"
+                           class="custom-control-input"
+                           [(ngModel)]="withdrawType"
+                           value="{{Frequency.onetime}}">
+                        <label class="custom-control-label"
+                           for="withdrawTypeOneTime">
+                           {{'blog.savingsCalculator.frequency.option.oneTime' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="withdrawTypeMonthly" name="withdrawType"
+                           class="custom-control-input"
+                           [(ngModel)]="withdrawType"
+                           value="{{Frequency.monthly}}">
+                        <label class="custom-control-label" for="withdrawTypeMonthly">
+                           {{'blog.savingsCalculator.frequency.option.monthly' | translate}}
+                        </label>
+                     </div>
+                     <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="withdrawTypeYearly" name="withdrawType"
+                           class="custom-control-input"
+                           [(ngModel)]="withdrawType"
+                           value="{{Frequency.yearly}}">
+                        <label class="custom-control-label" for="withdrawTypeYearly">
+                           {{'blog.savingsCalculator.frequency.option.yearly' | translate}}
+                        </label>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12" *ngIf="systematicWithdrawEnabled && withdrawType !== Frequency.onetime">
+                  <hr class="mt-3 mb-1" />
+                  <label for="investmentTime">{{'blog.savingsCalculator.withdraw.time.label' | translate}}</label>
+                  <div class="btn-group btn-group-toggle ml-4" data-toggle="buttons">
+                     <label class="btn btn-sm" [class.disabled]="withdrawType===Frequency.yearly"
+                        [ngClass]="withdrawTimeOption === TimeOption.months ? 'btn-primary active' : 'btn-outline-primary'">
+                        <input type="radio" name="withdrawTimeOption" [(ngModel)]="withdrawTimeOption"
+                           [disabled]="withdrawType===Frequency.yearly"
+                           value="{{TimeOption.months}}">
+                        {{'blog.savingsCalculator.time.option.months' | translate}}
+                     </label>
+                     <label class="btn btn-sm"
+                        [ngClass]="withdrawTimeOption === TimeOption.years ? 'btn-primary active' : 'btn-outline-primary'">
+                        <input type="radio" name="withdrawTimeOption" [(ngModel)]="withdrawTimeOption"
+                           value="{{TimeOption.years}}">
+                        {{'blog.savingsCalculator.time.option.years' | translate}}
+                     </label>
+                  </div>
+                  <input type="number" class="form-control" name="withdrawTime" id="withdrawTime"
+                     aria-describedby="timeHelp"
+                     [min]="timeMin"
+                     [max]="withdrawTimeOption === TimeOption.years ? withdrawTimeMax : withdrawTimeMaxMonths"
+                     [(ngModel)]="withdrawTime"
+                     placeholder="{{'blog.savingsCalculator.withdraw.time.placeHolder' | translate:{option: (withdrawTimeOptionParameter) } }}">
+                  <small id="timeHelp" class="form-text text-muted">
+                     {{ 'blog.savingsCalculator.withdraw.time.helperText' | translate: {option:
+                     (withdrawTimeOptionParameter)
+                     } }}
+                  </small>
+                  <mv-slider id="timeSlider" [min]="timeMin"
+                     [max]="withdrawTimeOption === TimeOption.years ? withdrawTimeMax : withdrawTimeMaxMonths"
+                     [(value)]="withdrawTime">
+                  </mv-slider>
+
+               </div>
+            </div>
+         </div>
+         <div class="col">
+            <div class="form-row mb-5">
+               <div class="col-md-12">
+                  <hr class="mt-3 mb-1" />
+                  <label>{{'blog.savingsCalculator.maturity.amount' | translate}}</label>
+                  <input readonly type="number" class="form-control" name="amount" [ngModel]="amount">
+               </div>
+               <div class="col-md-12 mt-5">
+                  <tiptac-app-savings-chart *ngIf="lineChart" [model]="lineChart"></tiptac-app-savings-chart>
+               </div>
+               <div class="col-md-12 mt-5">
+                  <tiptac-app-savings-share-chart *ngIf="pieChart" [model]="pieChart"></tiptac-app-savings-share-chart>
+               </div>
+            </div>
+         </div>
+      </div>
+   </form>
+
+</div>

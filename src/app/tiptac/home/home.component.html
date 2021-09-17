@@ -1,0 +1,22 @@
+<div class="row mb-2 p-4 p-md-5">
+   <div class="col-md-12">
+      <div class="col-md-12" *ngIf="savingsCalculatorFeature">
+         <tiptac-layout-blog-tile
+            [topic]="'topic.finance' | translate"
+            [title]="'blog.savingsCalculator.title' | translate"
+            [linkText]="'blog.savingsCalculator.linkText' | translate"
+            [link]="['savings-calculator']">
+            {{'blog.savingsCalculator.description'| translate}}
+         </tiptac-layout-blog-tile>
+      </div>
+
+      <div class="col-md-12" *ngIf="loanCalculatorFeature">
+         <tiptac-layout-blog-tile
+            [topic]="'topic.finance' | translate"
+            [title]="'blog.loanCalculator.title' | translate"
+            [linkText]="'blog.loanCalculator.linkText' | translate"
+            [link]="['loan-calculator']">
+            {{'blog.loanCalculator.description'| translate}}
+         </tiptac-layout-blog-tile>
+      </div>
+   </div>

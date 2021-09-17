@@ -1,0 +1,8 @@
+numbeo-app-savings-chart {
+  max-height: 10rem;
+}
+
+input[readonly] {
+  background-color: hsl(198, 83%, 94%);
+  font-weight: bolder;
+}
