@@ -1,0 +1,77 @@
+{
+  "blog": {
+    "savingsCalculator": {
+      "title": "Savings Calculator",
+      "description": "Calculate your maturity amount based on different parameters like Investment amount, rate of Interest etc..",
+      "linkText": "Try now..",
+      "principal": {
+        "label": "Investment Amount",
+        "placeHolder": "Enter Investment Amount",
+        "helperText": "Enter Investment Amount"
+      },
+      "rateOfInterest": {
+        "label": "Rate of Interest (%)",
+        "placeHolder": "Enter Rate of Interest",
+        "helperText": "Rate of Interest in Percentage per Year"
+      },
+      "investment": {
+        "time": {
+          "label": "Investment Period",
+          "placeHolder": "Enter period in {{option}}",
+          "helperText": "Number of {{option}}"
+        },
+        "label": "Investment"
+      },
+      "withdraw": {
+        "time": {
+          "label": "Withdraw period",
+          "placeHolder": "Enter period in {{option}}",
+          "helperText": "Number of {{option}}"
+        }
+      },
+      "time": {
+        "option": {
+          "months": "Months",
+          "years": "Years"
+        },
+        "label": "Time in Months"
+      },
+      "contributionType": {
+        "label": "Contribution Type"
+      },
+      "frequency": {
+        "option": {
+          "oneTime": "One Time",
+          "monthly": "Monthly",
+          "yearly": "Yearly"
+        }
+      },
+      "withdrawType": {
+        "label": "Withdraw Type"
+      },
+      "compoundInterval": {
+        "label": "Compound Interval",
+        "option": {
+          "never": "Never",
+          "monthly": "Monthly",
+          "yearly": "Yearly"
+        }
+      },
+      "interest": "Interest",
+      "amount": "Amount",
+      "total": "Total (Investment + Interest)",
+      "maturity": {
+        "amount": "Maturity Amount"
+      }
+    },
+    "loanCalculator": {
+      "title": "Loan Calculator",
+      "description": "Calculate your EMI based on different parameters like Loan amount, rate of Interest etc..",
+      "linkText": "Try now.."
+    }
+  },
+  "topic": {
+    "finance": "Finance"
+  },
+  "home": "Home"
+}
